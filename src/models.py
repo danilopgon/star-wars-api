@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -9,7 +10,7 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return "<User %r>" % self.username
 
     def serialize(self):
         return {
@@ -17,6 +18,7 @@ class User(db.Model):
             "email": self.email,
             # do not serialize the password, its a security breach
         }
+
 
 class Planet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,10 +35,28 @@ class Planet(db.Model):
     terrain = db.Column(db.String, nullable=False)
     created = db.Column(db.DateTime, nullable=False)
     edited = db.Column(db.DateTime, nullable=False)
-    
 
 
-class Vehicle(Base):
+pilots = db.Table(
+    "Pilots",
+    db.Column("id", db.Integer, primary_key=True),  # ID para la tabla
+    db.Column(
+        "vehicle_id", db.ForeignKey("vehicle.id")
+    ),  # Columna que pillamos como foreignkey (por eso minuscula), para unir
+    db.Column(
+        "pilot_id", db.ForeignKey("character.id")
+    ),  # Columna que pillamos como foreignkey (por eso minuscula), para unir
+)
+
+passengers = db.Table(
+    "Passengers",
+    db.Column("id", db.Integer, primary_key=True),
+    db.Column("vehicle_id", db.ForeignKey("vehicle.id")),
+    db.Column("passenger_id", db.ForeignKey("character.id")),
+)
+
+
+class Vehicle(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     url = db.Column(db.String, nullable=False, unique=True)
@@ -50,28 +70,22 @@ class Vehicle(Base):
     vehicle_class = db.Column(db.String, nullable=False)
     created = db.Column(db.DateTime, nullable=False)
     edited = db.Column(db.DateTime, nullable=False)
-    pilots = db.relationship('Pilots', secondary=pilots, lazy='subquery',
-        backref=db.backref('vehicle', lazy=True))
-    passengers = db.relationship('Passengers', secondary=passengers, lazy='subquery',
-        backref=db.backref('vehicle', lazy=True))
+    pilots = db.relationship(
+        "Character",  # Clase (en mayus) de la tabla a la que asociar, la otra primaria
+        secondary=pilots,  # Nombre de la tabla secundaria donde hacemos la unión
+        lazy="subquery",  # Estrategia de lazy
+        backref=db.backref(
+            "pilots", lazy=True
+        ),  # Backref para que pueda aparecer la tabla secundaria como una columna y lazy True (es un boolean)
+    )
+    passengers = db.relationship(
+        "Character",
+        secondary=passengers,
+        lazy="subquery",
+        backref=db.backref("passengers", lazy=True),
+    )
 
-   
-   
 
-pilots = db.Table(
-    "Pilots",
-    db.Column("id", db.Integer, primary_key=True),
-    db.Column("vehicle_id", db.ForeignKey(Vehicle.id)),
-    db.Column("pilot_id", db.ForeignKey(Character.id)),
-)
-
-passengers = db.Table(
-    "passengers",
-    db.Column("id", db.Integer, primary_key=True),
-    db.Column("vehicle_id", db.ForeignKey(Vehicle.id)),
-    db.Column("passenger_id", db.ForeignKey(Character.id)),
-)  
- 
 class Character(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
