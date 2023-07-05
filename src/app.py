@@ -34,7 +34,7 @@ db.init_app(app)
 CORS(app)
 setup_admin(app)
 
-app.register_blueprint(api)
+app.register_blueprint(api, url_prefix="/api")
 
 
 # Handle/serialize errors like a JSON object
@@ -47,13 +47,6 @@ def handle_invalid_usage(error):
 @app.route("/")
 def sitemap():
     return generate_sitemap(app)
-
-
-@app.route("/user", methods=["GET"])
-def handle_hello():
-    response_body = {"msg": "Hello, this is your GET /user response "}
-
-    return jsonify(response_body), 200
 
 
 # this only runs if `$ python src/app.py` is executed
