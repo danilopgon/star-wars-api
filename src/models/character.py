@@ -11,8 +11,6 @@ class Character(db.Model):
     eye_color = db.Column(db.String(100), nullable=False)
     birth_year = db.Column(db.String(100), nullable=False)
     gender = db.Column(db.String(100), nullable=False)
-    created = db.Column(db.DateTime)
-    edited = db.Column(db.DateTime)
     url = db.Column(db.String(200), nullable=False)
 
     def __repr__(self):
@@ -22,7 +20,6 @@ class Character(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "climate": self.climate,
             "height": self.height,
             "mass": self.mass,
             "hair_color": self.hair_color,
