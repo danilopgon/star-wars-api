@@ -6,9 +6,9 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=False, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
-    favorite_planets = db.relationship("Favorite_planets", backref="planet")
-    favorite_characters = db.relationship("Favorite_characters", backref="character")
-    favorite_vehicles = db.relationship("Favorite_vehicles", backref="vehicle")
+    favorite_planets = db.relationship("Planet", secondary="favorite_planets", backref="users")
+    favorite_characters = db.relationship("Character", secondary="favorite_characters", backref="users")
+    favorite_vehicles = db.relationship("Vehicle", secondary="favorite_vehicles", backref="users")
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
     def __repr__(self):
