@@ -6,7 +6,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 
 export const PlanetsView = () => {
   const params = useParams();
-  const { actions, store } = useAppContext();
+  const { store } = useAppContext();
 
   const planet = store.planets.find((planet) => planet.uid === params.id);
   const details = store.planetsDetails.find(

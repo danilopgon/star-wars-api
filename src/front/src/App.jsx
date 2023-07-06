@@ -4,7 +4,7 @@ import { Navbar } from "./components/Navbar";
 
 import { Home } from "./views/Home";
 import { DetailsView } from "./views/DetailsView";
-import { PlanetsView } from "./views/PlanetsVIew";
+import { PlanetsView } from "./views/PlanetsView";
 import { NotFound } from "./views/NotFound";
 
 function App() {
