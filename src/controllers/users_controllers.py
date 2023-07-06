@@ -5,7 +5,9 @@ from tools import db
 
 
 def get_all_users():
-    query = db.select(User).order_by(User.email)
+    query = db.select(User).order_by(User.username)
     users = db.session.execute(query).scalars()
     users = [user.serialize() for user in users]
     return jsonify(users), 200
+
+

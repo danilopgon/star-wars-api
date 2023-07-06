@@ -1,0 +1,20 @@
+from flask import jsonify
+
+from models import Character
+from tools import db
+
+
+def get_all_characters():
+    query = db.select(Character).order_by(Character.name)
+    characters = db.session.execute(query).scalars()
+    characters = [character.serialize() for character in characters]
+    return jsonify(characters), 200
+
+
+def get_character_by_id(user_id):
+    query = db.select(Character).where(Character.id == user_id)
+    character = db.session.execute(query).scalar()
+    if character:
+        return jsonify(character.serialize()), 200
+    else:
+        return "User not found", 400
