@@ -9,8 +9,8 @@ class Character(db.Model):
     hair_color = db.Column(db.String(100), nullable=False)
     skin_color = db.Column(db.String(100), nullable=False)
     eye_color = db.Column(db.String(100), nullable=False)
-    birth_year = db.Column(db.String(100), nullable=False)
     gender = db.Column(db.String(100), nullable=False)
+    birth_year = db.Column(db.Integer, nullable=False)
     url = db.Column(db.String(200), nullable=False)
 
     def __repr__(self):

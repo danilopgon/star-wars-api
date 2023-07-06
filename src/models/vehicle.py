@@ -6,7 +6,7 @@ class Vehicle(db.Model):
     name = db.Column(db.String(100), nullable=False, unique=True)
     cargo_capacity = db.Column(db.Integer, nullable=False)
     crew = db.Column(db.Integer, nullable=False)
-    length = db.Column(db.String(50), nullable=False)
+    length = db.Column(db.Integer, nullable=False)
     manufacturer = db.Column(db.String(100), nullable=False)
     max_atmosphering_speed = db.Column(db.Integer, nullable=False)
     model = db.Column(db.String(100), nullable=False)
