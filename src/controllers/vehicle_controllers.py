@@ -18,7 +18,7 @@ def get_vehicle_by_id(user_id):
         if vehicle:
             return jsonify(vehicle.serialize()), 200
         else:
-            return "User not found", 400
+            return "Vehicle not found", 400
     except Exception as e:
         response = {"error": str(e)}
         return jsonify(response), 500

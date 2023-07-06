@@ -18,7 +18,7 @@ def get_character_by_id(user_id):
         if character:
             return jsonify(character.serialize()), 200
         else:
-            return "User not found", 400
+            return "Character not found", 400
     except Exception as e:
         response = {"error": str(e)}
         return jsonify(response), 500

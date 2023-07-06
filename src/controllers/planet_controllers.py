@@ -18,7 +18,7 @@ def get_planet_by_id(user_id):
         if planet:
             return jsonify(planet.serialize()), 200
         else:
-            return "User not found", 400
+            return "Planet not found", 400
     except Exception as e:
         response = {"error": str(e)}
         return jsonify(response), 500
