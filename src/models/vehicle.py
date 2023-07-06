@@ -22,7 +22,6 @@ class Vehicle(db.Model):
             "name": self.name,
             "url": self.url,
             "cargo_capacity": self.cargo_capacity,
-            "created": self.created,
             "crew": self.crew,
             "length": self.length,
             "manufacturer": self.manufacturer,
