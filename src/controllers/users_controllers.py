@@ -9,5 +9,3 @@ def get_all_users():
     users = db.session.execute(query).scalars()
     users = [user.serialize() for user in users]
     return jsonify(users), 200
-
-

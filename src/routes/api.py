@@ -11,4 +11,3 @@ api.register_blueprint(character_routes, url_prefix="/people")
 api.register_blueprint(user_routes, url_prefix="/users")
 api.register_blueprint(planet_routes, url_prefix="/planets")
 api.register_blueprint(vehicle_routes, url_prefix="/vehicles")
-

@@ -15,10 +15,10 @@ def get_vehicle_by_id(user_id):
     try:
         query = db.select(Vehicle).where(Vehicle.id == user_id)
         vehicle = db.session.execute(query).scalar()
-        if vehicle:
-            return jsonify(vehicle.serialize()), 200
-        else:
+        if not vehicle:
             return "Vehicle not found", 400
+
+        return jsonify(vehicle.serialize()), 200
     except Exception as e:
         response = {"error": str(e)}
         return jsonify(response), 500

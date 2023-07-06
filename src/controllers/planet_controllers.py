@@ -15,10 +15,10 @@ def get_planet_by_id(user_id):
     try:
         query = db.select(Planet).where(Planet.id == user_id)
         planet = db.session.execute(query).scalar()
-        if planet:
-            return jsonify(planet.serialize()), 200
-        else:
+        if not planet:
             return "Planet not found", 400
+
+        return jsonify(planet.serialize()), 200
     except Exception as e:
         response = {"error": str(e)}
         return jsonify(response), 500
