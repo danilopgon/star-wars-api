@@ -12,9 +12,13 @@ def get_all_characters():
 
 
 def get_character_by_id(user_id):
-    query = db.select(Character).where(Character.id == user_id)
-    character = db.session.execute(query).scalar()
-    if character:
-        return jsonify(character.serialize()), 200
-    else:
-        return "User not found", 400
+    try:
+        query = db.select(Character).where(Character.id == user_id)
+        character = db.session.execute(query).scalar()
+        if character:
+            return jsonify(character.serialize()), 200
+        else:
+            return "User not found", 400
+    except Exception as e:
+        response = {"error": str(e)}
+        return jsonify(response), 500

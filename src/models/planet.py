@@ -27,6 +27,5 @@ class Planet(db.Model):
             "population": self.population,
             "rotation_period": self.rotation_period,
             "surface_water": self.surface_water,
-            "terrain": self.terrain,
             "url": self.url,
         }
