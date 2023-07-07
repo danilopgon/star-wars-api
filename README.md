@@ -5,7 +5,7 @@ npm ci
 npm run dev
 ```
 
-# Ejecuta el Back desde src/
+# Ejecuta el Back
 
 ```
 pipenv install;
