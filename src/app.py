@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
-from admin import setup_admin
+# from admin import setup_admin
 from tools import db
 
 
@@ -31,7 +31,7 @@ else:
 MIGRATE = Migrate(app, db)
 db.init_app(app)
 CORS(app)
-setup_admin(app)
+# setup_admin(app)
 
 app.register_blueprint(api, url_prefix="/api")
 
