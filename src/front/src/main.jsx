@@ -3,9 +3,12 @@ import App from "./App.jsx";
 import "./index.css";
 
 import { AppProvider } from "./context/AppContext.jsx";
+import { LoginProvider } from "./context/LoginContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <AppProvider>
-    <App />
-  </AppProvider>
+  <LoginProvider>
+    <AppProvider>
+      <App />
+    </AppProvider>
+  </LoginProvider>
 );
