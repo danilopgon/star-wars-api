@@ -4,11 +4,13 @@ import useLoginContext from "../context/LoginContext";
 const LoginForm = () => {
   const { actions, store } = useLoginContext();
 
-  console.log(store.userInput);
 
   return (
     <div className="container my-5 d-flex justify-content-center align-items-center">
-      <div className="row w-75">
+      <div className="row w-75 ">
+        <h1 className="text-center my-3">
+          {store.signupMode ? "Sign up" : "Login"}
+        </h1>
         <form className="d-flex flex-column">
           {store.signupMode && (
             <div className="form-outline mb-4 ">
@@ -56,7 +58,7 @@ const LoginForm = () => {
 
           <div className="row mb-4">
             <button type="button" className="btn btn-primary mb-4">
-              Sign in
+              {store.signupMode ? "Sign up" : "Login"}
             </button>
 
             <div className="text-center">
