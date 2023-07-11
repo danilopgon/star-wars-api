@@ -28,7 +28,7 @@ export const LoginProvider = ({ children }) => {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    await login({ userInput });
+    await login(userInput);
     setLoggedIn(true);
     setUserInput({
       username: "",
@@ -42,7 +42,7 @@ export const LoginProvider = ({ children }) => {
   const handleSignup = async (event) => {
     event.preventDefault();
 
-    await signup({ userInput });
+    await signup(userInput);
     setUserInput({
       username: "",
       email: "",
