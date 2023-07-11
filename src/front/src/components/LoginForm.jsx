@@ -25,6 +25,7 @@ const LoginForm = () => {
                 className="form-control"
                 onChange={actions.handleUserInput}
                 value={store.userInput.email}
+                required
               />
               <label className="form-label" htmlFor="email">
                 Email Address
@@ -40,6 +41,8 @@ const LoginForm = () => {
               className="form-control"
               onChange={actions.handleUserInput}
               value={store.userInput.username}
+              required
+              minLength="4"
             />
             <label className="form-label" htmlFor="username">
               Username
@@ -54,6 +57,8 @@ const LoginForm = () => {
               className="form-control"
               onChange={actions.handleUserInput}
               value={store.userInput.password}
+              required
+              minLength="4"
             />
             <label className="form-label" htmlFor="password">
               Password

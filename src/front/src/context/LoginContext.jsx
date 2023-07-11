@@ -15,9 +15,10 @@ export const LoginProvider = ({ children }) => {
 
   const handleUserInput = (event) => {
     const { name, value } = event.target;
+
     setUserInput((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: value.trim(),
     }));
   };
 
