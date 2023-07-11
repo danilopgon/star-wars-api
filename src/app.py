@@ -7,7 +7,6 @@ from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
-from flask_bcrypt import Bcrypt
 from utils import APIException
 # , generate_sitemap
 from admin import setup_admin
@@ -38,7 +37,6 @@ CORS(app)
 
 app.config["JWT_SECRET_KEY"] = "8X4HjdXkyV"
 jwt = JWTManager(app)
-bcrypt = Bcrypt(app)
 
 app.register_blueprint(api, url_prefix="/api")
 

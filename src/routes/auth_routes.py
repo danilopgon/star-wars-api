@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 
-from controllers.auth_controllers_controllers import login, signup
+from controllers.auth_controllers import login, signup
 
 auth_routes = Blueprint("auth", __name__)
 
