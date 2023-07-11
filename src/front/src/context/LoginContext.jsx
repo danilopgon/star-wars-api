@@ -36,6 +36,7 @@ export const LoginProvider = ({ children }) => {
       password: "",
     });
     navigate("/");
+    alert("Estás conectado");
   };
 
   const handleSignup = async (event) => {
@@ -47,6 +48,8 @@ export const LoginProvider = ({ children }) => {
       email: "",
       password: "",
     });
+    navigate("login");
+    alert("¡Registro completado!");
   };
 
   const actions = {

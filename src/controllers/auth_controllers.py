@@ -23,7 +23,7 @@ def login():
         return jsonify({"msg": "Bad username or password"}), 401
 
     access_token = create_access_token(identity=user.id)
-    return jsonify({"token": access_token, "user_id": user.id})
+    return jsonify({ "token": access_token, "user_id": user.id })
 
 def signup():
     username = request.json.get("username", None)

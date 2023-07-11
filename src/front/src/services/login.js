@@ -9,8 +9,8 @@ const login = async (userInput) => {
       body: JSON.stringify({ username, password }),
     }
   );
-  const data = await response.json;
-  console.log(data);
+  const data = await response.json();
+  console.log(data.token);
 };
 
 export default login;
