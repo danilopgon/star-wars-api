@@ -3,6 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import os
 from flask import Flask, request, jsonify, url_for, send_from_directory
+from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
@@ -33,6 +34,9 @@ MIGRATE = Migrate(app, db)
 db.init_app(app)
 CORS(app)
 # setup_admin(app)
+
+app.config["JWT_SECRET_KEY"] = "8X4HjdXkyV"
+jwt = JWTManager(app)
 
 app.register_blueprint(api, url_prefix="/api")
 

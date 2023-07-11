@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+
+import { AppProvider } from "./context/AppContext.jsx";
+import { LoginProvider } from "./context/LoginContext.jsx";
 import { Navbar } from "./components/Navbar";
 
 import { Home } from "./views/Home";
@@ -11,14 +14,18 @@ import { LoginView } from "./views/LoginView";
 function App() {
   return (
     <BrowserRouter basename="/">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/characters/:id" element={<DetailsView />} />
-        <Route path="/planets/:id" element={<PlanetsView />} />
-        <Route path="/login" element={<LoginView />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <LoginProvider>
+        <AppProvider>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/characters/:id" element={<DetailsView />} />
+            <Route path="/planets/:id" element={<PlanetsView />} />
+            <Route path="/login" element={<LoginView />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AppProvider>
+      </LoginProvider>
     </BrowserRouter>
   );
 }
