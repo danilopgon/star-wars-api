@@ -1,4 +1,6 @@
 import React, { useContext, createContext, useState } from "react";
+import login from "../services/login";
+import signup from "../services/signup";
 
 const LoginContext = createContext();
 
@@ -22,8 +24,19 @@ export const LoginProvider = ({ children }) => {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    await sendLogin(userInput);
+    await login({ userInput });
     setLoggedIn(true);
+    setUserInput({
+      username: "",
+      email: "",
+      password: "",
+    });
+  };
+
+  const handleSignup = async (event) => {
+    event.preventDefault();
+
+    await signup({ userInput });
     setUserInput({
       username: "",
       email: "",
@@ -37,6 +50,7 @@ export const LoginProvider = ({ children }) => {
     setLoggedIn,
     handleUserInput,
     handleLogin,
+    handleSignup,
   };
 
   const store = {
