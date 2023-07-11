@@ -1,4 +1,5 @@
 import React, { useContext, createContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import login from "../services/login";
 import signup from "../services/signup";
 
@@ -12,6 +13,8 @@ export const LoginProvider = ({ children }) => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleUserInput = (event) => {
     const { name, value } = event.target;
@@ -32,6 +35,7 @@ export const LoginProvider = ({ children }) => {
       email: "",
       password: "",
     });
+    navigate("/");
   };
 
   const handleSignup = async (event) => {
