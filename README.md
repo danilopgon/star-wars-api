@@ -2,7 +2,9 @@
 
 ```
 npm ci
-npm run dev
+npm run build
+
+//Servidor de desarrollo con npm run dev
 ```
 
 # Ejecuta el Back

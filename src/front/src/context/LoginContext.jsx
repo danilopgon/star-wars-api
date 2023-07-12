@@ -48,7 +48,7 @@ export const LoginProvider = ({ children }) => {
       email: "",
       password: "",
     });
-    navigate("login");
+    navigate("/login");
     alert("¡Registro completado!");
   };
 
