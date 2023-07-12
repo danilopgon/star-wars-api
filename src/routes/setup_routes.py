@@ -12,19 +12,16 @@ def setup():
         with db.session.no_autoflush:
             if db.session.query(Character).count() == 0:
                 setupCharacters()
-            else:
-                return "Character table already has rows. Data setup skipped for Characters."
+                return "Data setup completed for Characters."
             
             if db.session.query(Planet).count() == 0:
                 setupPlanets()
-            else:
-                return "Planet table already has rows. Data setup skipped for Planets."
+                return "Data setup completed for Planets."
             
             if db.session.query(Vehicle).count() == 0:
                 setupVehicles()
-            else:
-                return "Vehicle table already has rows. Data setup skipped for Vehicles."
+                return "Data setup completed for Vehicles."
+            
+            return "All tables already have rows. Data setup skipped."
     except Exception as e:
         return f"An error occurred during data setup: {str(e)}"
-    
-    return "Data setup completed successfully!"

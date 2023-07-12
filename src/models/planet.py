@@ -7,10 +7,10 @@ class Planet(db.Model):
     climate = db.Column(db.String(100), nullable=False)
     diameter = db.Column(db.String(100), nullable=False)
     gravity = db.Column(db.String(100), nullable=False)
-    orbital_period = db.Column(db.Integer, nullable=False)
-    population = db.Column(db.Integer, nullable=False)
-    rotation_period = db.Column(db.Integer, nullable=False)
-    surface_water = db.Column(db.Integer, nullable=False)
+    orbital_period = db.Column(db.String(100), nullable=False)
+    population = db.Column(db.String(100), nullable=False)
+    rotation_period = db.Column(db.String(100), nullable=False)
+    surface_water = db.Column(db.String(100), nullable=False)
     url = db.Column(db.String(200), nullable=False, unique=True)
 
     def __repr__(self):

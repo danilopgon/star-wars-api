@@ -1,6 +1,6 @@
 import requests
 from tools import db
-from models import Character
+from models import Character, Planet, Vehicle
 
 def setupCharacters ():
     if db.session.query(Character).count() == 0:
@@ -88,41 +88,56 @@ def setupPlanets():
 
 def setupVehicles():
     if db.session.query(Vehicle).count() == 0:
-        for i in range(1, 11):
+        count = 0
+        i = 1
+        successful_insertions = 0
+
+        while count < 10:
             response = requests.get(f'https://swapi.tech/api/vehicles/{i}')
-            json = response.json()
-            content = json["result"]
-            properties = json["result"]["properties"]
+            json_data = response.json()
 
-            vehicle_info = {
-                "id": content["uid"],
-                "name": properties["name"],
-                "cargo_capacity": properties["cargo_capacity"],
-                "crew": properties["crew"],
-                "length": properties["length"],
-                "manufacturer": properties["manufacturer"],
-                "max_atmosphering_speed": properties["max_atmosphering_speed"],
-                "model": properties["model"],
-                "vehicle_class": properties["vehicle_class"],
-                "url": content["uid"],         
-            }
+            if "result" in json_data:
+                content = json_data["result"]
+                properties = content["properties"]
 
-            vehicle = Vehicle(
-                id=vehicle_info["id"],
-                name=vehicle_info["name"],
-                cargo_capacity=vehicle_info["cargo_capacity"],
-                crew=vehicle_info["crew"],
-                length=vehicle_info["length"],
-                manufacturer=vehicle_info["manufacturer"],
-                max_atmosphering_speed=vehicle_info["max_atmosphering_speed"],
-                model=vehicle_info["model"],
-                vehicle_class=vehicle_info["vehicle_class"],
-                url=vehicle_info["url"]
-            )
+                vehicle_info = {
+                    "id": content["uid"],
+                    "name": properties["name"],
+                    "cargo_capacity": properties["cargo_capacity"],
+                    "crew": properties["crew"],
+                    "length": properties["length"],
+                    "manufacturer": properties["manufacturer"],
+                    "max_atmosphering_speed": properties["max_atmosphering_speed"],
+                    "model": properties["model"],
+                    "vehicle_class": properties["vehicle_class"],
+                    "url": content["uid"],         
+                }
 
-            db.session.add(vehicle)
+                vehicle = Vehicle(
+                    id=vehicle_info["id"],
+                    name=vehicle_info["name"],
+                    cargo_capacity=vehicle_info["cargo_capacity"],
+                    crew=vehicle_info["crew"],
+                    length=vehicle_info["length"],
+                    manufacturer=vehicle_info["manufacturer"],
+                    max_atmosphering_speed=vehicle_info["max_atmosphering_speed"],
+                    model=vehicle_info["model"],
+                    vehicle_class=vehicle_info["vehicle_class"],
+                    url=vehicle_info["url"]
+                )
 
-        db.session.commit()
-        print("Data added to the Vehicle table.")
+                db.session.add(vehicle)
+                db.session.commit()
+
+                # Verify if the vehicle was added successfully
+                if db.session.query(Vehicle).filter_by(id=vehicle_info["id"]).first() is not None:
+                    successful_insertions += 1
+
+                count += 1
+
+            i += 1
+
+        print(f"{successful_insertions} vehicles added to the Vehicle table.")
     else:
         print("The Vehicle table is not empty.")
+
