@@ -34,3 +34,10 @@ def favorite_vehicle(vehicle_id):
         return delete_favorite_vehicle(user_id)
 
 
+@favorite_routes.route("/", methods=["GET"])
+@jwt_required()
+def get_user_favorites():
+    user_id = get_jwt_identity()
+    favorites = get_all_favorites(user_id)
+    return favorites
+
