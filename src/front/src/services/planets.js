@@ -1,7 +1,10 @@
 const getPlanets = async (setPlanets) => {
-  const response = await fetch("https://www.swapi.tech/api/planets");
+  const response = await fetch(`${import.meta.env.VITE_API_URL}api/planets`);
   const data = await response.json();
-  setPlanets(data.results);
+
+  const orderedData = data.sort((a, b) => a.id - b.id);
+
+  setPlanets(orderedData);
 };
 
 export default getPlanets;

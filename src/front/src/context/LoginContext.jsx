@@ -19,8 +19,8 @@ export const LoginProvider = ({ children }) => {
   useEffect(() => {
     if (localStorage.getItem("jwt-token")) {
       setLoggedIn(true);
+      alert("Welcome back!");
     }
-    alert("Welcome back!");
   }, []);
 
   const handleUserInput = (event) => {

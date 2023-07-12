@@ -17,35 +17,52 @@ export const Home = () => {
     <>
       <Title>Characters</Title>
       <CardGroup>
-        {store?.characters.map((character, index) => {
+        {store?.characters.map((character) => {
           return (
             <Card
               title={character.name}
-              key={character.uid}
-              url={`/characters/${character.uid}`}
-              id={character.uid}
-              src={`https://starwars-visualguide.com/assets/img/characters/${character.uid}.jpg`}
+              key={character.id}
+              url={`/characters/${character.id}`}
+              id={character.id}
+              src={`https://starwars-visualguide.com/assets/img/characters/${character.id}.jpg`}
             >
-              <p>{`Gender: ${store?.charactersDetails[index].gender}`}</p>
-              <p>{`Hair Color: ${store?.charactersDetails[index].hair_color}`}</p>
-              <p>{`Eye Color: ${store?.charactersDetails[index].eye_color}`}</p>
+              <p>{`Gender: ${character.gender}`}</p>
+              <p>{`Hair Color: ${character.hair_color}`}</p>
+              <p>{`Eye Color: ${character.eye_color}`}</p>
             </Card>
           );
         })}
       </CardGroup>
       <Title>Planets</Title>
       <CardGroup>
-        {store?.planets.map((planet, index) => {
+        {store?.planets.map((planet) => {
           return (
             <Card
               title={planet.name}
-              key={planet.uid}
-              url={`/planets/${planet.uid}`}
-              id={planet.uid}
-              src={`https://starwars-visualguide.com/assets/img/planets/${planet.uid}.jpg`}
+              key={planet.id}
+              url={`/planets/${planet.id}`}
+              id={planet.id}
+              src={`https://starwars-visualguide.com/assets/img/planets/${planet.id}.jpg`}
             >
-              <p>{`Population: ${store?.planetsDetails[index].population}`}</p>
-              <p>{`Terrain: ${store?.planetsDetails[index].terrain}`}</p>
+              <p>{`Population: ${planet.population}`}</p>
+              <p>{`Terrain: ${planet.terrain}`}</p>
+            </Card>
+          );
+        })}
+      </CardGroup>
+      <Title>Vehicles</Title>
+      <CardGroup>
+        {store?.vehicles.map((vehicle) => {
+          return (
+            <Card
+              title={vehicle.name}
+              key={vehicle.id}
+              url={`/vehicles/${vehicle.id}`}
+              id={vehicle.id}
+              src={`https://starwars-visualguide.com/assets/img/vehicles/${vehicle.id}.jpg`}
+            >
+              <p>{`Population: ${vehicle.population}`}</p>
+              <p>{`Terrain: ${vehicle.terrain}`}</p>
             </Card>
           );
         })}

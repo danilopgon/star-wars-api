@@ -1,4 +1,5 @@
 from flask import jsonify, request
+from flask_jwt_extended import  get_jwt_identity
 
 from models import Favorite_vehicles, Favorite_characters, Favorite_planets, User, Planet, Character, Vehicle
 from tools import db

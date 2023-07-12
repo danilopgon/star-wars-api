@@ -2,29 +2,26 @@ import { useContext, createContext, useEffect } from "react";
 import { useState } from "react";
 
 import getCharacters from "../services/characters";
-import getCharactersDetails from "../services/charactersDetails";
 import getPlanets from "../services/planets";
-import getPlanetsDetails from "../services/planetsDetails";
+import getVehicles from "../services/vehicles";
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [allData, setAllData] = useState([]);
-  const [allDetailData, setAllDetailData] = useState([]);
   const [favoritesList, setFavoritesList] = useState([]);
   const [characters, setCharacters] = useState([]);
-  const [charactersDetails, setCharactersDetails] = useState([]);
   const [planets, setPlanets] = useState([]);
-  const [planetsDetails, setPlanetsDetails] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => setFavoritesList([]), []);
 
   const handleAddFavoritesList = (e) => {
     const element = e.target;
-    
+
     allData.forEach((item) => {
-      element.id === item.uid&&element.className.includes(item.name)
+      element.id === item.id && element.className.includes(item.name)
         ? setFavoritesList((prev) => {
             if (!prev.includes(item.name)) {
               return [...prev, item.name];
@@ -42,50 +39,23 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const getAllCharDetails = async () => {
-      const orderedDetails = await Promise.all(
-        characters.map(async (character) => {
-          return await getCharactersDetails(character.uid);
-        })
-      );
-
-      orderedDetails.sort((a, b) => a.uid - b.uid);
-      setCharactersDetails(orderedDetails);
-    };
-
-    getAllCharDetails();
-  }, [characters]);
-
-  useEffect(() => {
     getPlanets(setPlanets);
   }, []);
 
   useEffect(() => {
-    const getAllPlanetsDetails = async () => {
-      const planetsDetails = await Promise.all(
-        planets.map(async (planet) => {
-          return await getPlanetsDetails(planet.uid);
-        })
-      );
-
-      const orderedDetails = planetsDetails.sort((a, b) => a.uid - b.uid);
-      setPlanetsDetails(orderedDetails);
-    };
-
-    getAllPlanetsDetails();
-  }, [planets]);
+    getVehicles(setVehicles);
+  }, []);
 
   //USE EFFECT PARA CONTROLAR LOADING (ESTO ES MEJORABLE, ¿NO?)
   useEffect(() => {
     if (
-      charactersDetails.length > 0 &&
-      characters.length === charactersDetails.length &&
-      planetsDetails.length > 0 &&
-      planets.length === planetsDetails.length
+      characters.length >= 10 &&
+      planets.length >= 10 &&
+      vehicles.length >= 10
     ) {
       setLoading(false);
     }
-  }, [characters, charactersDetails, planets, planetsDetails]);
+  }, [characters, planets]);
 
   const handleDeleteFavorites = (e) => {
     const elementId = e.target.id;
@@ -101,21 +71,15 @@ export const AppProvider = ({ children }) => {
   const store = {
     favoritesList,
     characters,
-    charactersDetails,
     planets,
-    planetsDetails,
+    vehicles,
     loading,
     allData,
-    allDetailData,
   };
 
   useEffect(
     () => setAllData(() => [...planets, ...characters]),
-    [planetsDetails, charactersDetails]
-  );
-  useEffect(
-    () => setAllDetailData(() => [...planetsDetails, ...charactersDetails]),
-    [planetsDetails, charactersDetails]
+    [planets, characters]
   );
 
   return (
