@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import login from "../services/login";
 import signup from "../services/signup";
@@ -16,6 +16,13 @@ export const LoginProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (localStorage.getItem("jwt-token")) {
+      setLoggedIn(true);
+    }
+    alert("Welcome back!");
+  }, []);
+
   const handleUserInput = (event) => {
     const { name, value } = event.target;
 
@@ -29,6 +36,11 @@ export const LoginProvider = ({ children }) => {
     event.preventDefault();
 
     await login(userInput);
+
+    if (localStorage.getItem("jwt-token") === null) {
+      return alert("Failed to login. Please check your credentials.");
+    }
+
     setLoggedIn(true);
     setUserInput({
       username: "",
@@ -36,7 +48,7 @@ export const LoginProvider = ({ children }) => {
       password: "",
     });
     navigate("/");
-    alert("Estás conectado");
+    alert("You're logged in");
   };
 
   const handleSignup = async (event) => {
@@ -52,6 +64,13 @@ export const LoginProvider = ({ children }) => {
     alert("¡Registro completado!");
   };
 
+  const handleLogout = () => {
+    setLoggedIn(false);
+    localStorage.removeItem("jwt-token");
+    navigate("/login");
+    alert("You have been logged out");
+  };
+
   const actions = {
     setSignupMode,
     setUserInput,
@@ -59,6 +78,7 @@ export const LoginProvider = ({ children }) => {
     handleUserInput,
     handleLogin,
     handleSignup,
+    handleLogout,
   };
 
   const store = {

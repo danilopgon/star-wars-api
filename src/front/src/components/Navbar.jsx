@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import useLoginContext from "../context/LoginContext";
 
 export const Navbar = () => {
-  const { store: appStore, actions } = useAppContext();
-  const { store: loginStore } = useLoginContext();
+  const { store: appStore, actions: appActions } = useAppContext();
+  const { store: loginStore, actions: loginActions } = useLoginContext();
 
   return (
     <header className="container-fluid bg-body-secondary">
@@ -49,11 +49,11 @@ export const Navbar = () => {
                       className="btn btn-danger"
                       id={item}
                       key={item.id}
-                      onClick={actions.handleDeleteFavorites}
+                      onClick={appActions.handleDeleteFavorites}
                     >
                       <i
                         className="fa-regular fa-trash-can p-1"
-                        onClick={actions.handleDeleteFavorites}
+                        onClick={appActions.handleDeleteFavorites}
                         id={item}
                       ></i>
                     </button>
@@ -61,6 +61,12 @@ export const Navbar = () => {
                 );
               })}
             </ul>
+            <button
+              className="ms-3 btn btn-danger"
+              onClick={loginActions.handleLogout}
+            >
+              Logout
+            </button>
           </nav>
         ) : (
           <nav className="dropdown col-auto">
