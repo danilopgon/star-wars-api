@@ -52,7 +52,6 @@ export const LoginProvider = ({ children }) => {
   const handleValidationLogin = () => {
     setLoggedIn(true);
     navigate("/");
-    alert("You're logged in");
   };
 
   const handleSignup = async (event) => {
