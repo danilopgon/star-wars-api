@@ -7,13 +7,19 @@ npm run build
 //Servidor de desarrollo con npm run dev
 ```
 
-# Ejecuta el Back
+# Ejecuta el Back desde raiz
 
 ```
 pipenv install;
 pipenv run init;
 pipenv run migrate;
 pipenv run upgrade;
+```
+
+# Setup de la DB
+
+```
+El endpoint api/setup puede llamarse 3 veces para llenar cada uno de las tablas principales con los datos de Swapi
 ```
 
 <a href="https://www.breatheco.de"><img height="280" align="right" src="https://github.com/4GeeksAcademy/flask-rest-hello/blob/main/docs/assets/badge.png?raw=true"></a>
