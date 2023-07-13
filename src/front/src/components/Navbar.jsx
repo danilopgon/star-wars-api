@@ -34,7 +34,7 @@ export const Navbar = () => {
                 return (
                   <li className="d-flex m-2" key={item.id}>
                     <Link
-                      to={`/${itemType}s/${item}`}
+                      to={`/${itemType}s/${item.id}`}
                       className="dropdown-item"
                       href="#"
                       key={item.id}
