@@ -1,26 +1,25 @@
 import { useParams } from "react-router";
 import useAppContext from "../context/AppContext";
 
-import Details from "../components/Details";
+import Vehicles from "../components/Vehicles";
 import LoadingSpinner from "../components/LoadingSpinner";
 
-export const DetailsView = () => {
+export const VehiclesView = () => {
   const params = useParams();
   const { store } = useAppContext();
 
-  const character = store?.characters.find(
-    (character) => character.id === Number(params.id)
+  const vehicle = store.vehicles.find(
+    (vehicle) => vehicle.id === Number(params.id)
   );
-
-  console.log(store.characters);
 
   if (store.loading) {
     return <LoadingSpinner />;
   }
+
   return (
-    <Details
-      details={character}
-      src={`https://starwars-visualguide.com/assets/img/characters/${character.id}.jpg`}
+    <Vehicles
+      details={vehicle}
+      src={`https://starwars-visualguide.com/assets/img/vehicles/${vehicle.id}.jpg`}
     >
       <p>
         Voluptate laborum laborum adipisicing occaecat cupidatat aliqua Lorem
@@ -32,6 +31,6 @@ export const DetailsView = () => {
         excepteur quis ipsum ipsum veniam consequat reprehenderit laborum
         ullamco.
       </p>
-    </Details>
+    </Vehicles>
   );
 };

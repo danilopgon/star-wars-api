@@ -61,8 +61,8 @@ export const Home = () => {
               id={vehicle.id}
               src={`https://starwars-visualguide.com/assets/img/vehicles/${vehicle.id}.jpg`}
             >
-              <p>{`Population: ${vehicle.population}`}</p>
-              <p>{`Terrain: ${vehicle.terrain}`}</p>
+              <p>{`Model: ${vehicle.model}`}</p>
+              <p>{`Manufacturer: ${vehicle.manufacturer}`}</p>
             </Card>
           );
         })}

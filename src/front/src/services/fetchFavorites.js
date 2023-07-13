@@ -20,8 +20,6 @@ const fetchFavorites = async (setFavorites) => {
       ...favorites.favorites_vehicles,
     ];
 
-    console.log(favoritesList);
-
     setFavorites(favoritesList);
   } catch (error) {
     console.error("Failed to fetch favorites:", error);

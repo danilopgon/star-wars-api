@@ -1,4 +1,4 @@
-const Planets = ({ details, children, src }) => {
+const Vehicles = ({ details, children, src }) => {
   return (
     <div className="container text-center">
       <div className="row row-cols-1 row-cols-lg-2 p-3">
@@ -18,28 +18,28 @@ const Planets = ({ details, children, src }) => {
           <p>{details.name}</p>
         </div>
         <div className="col">
-          <h5>Climate</h5>
-          <p>{details.climate}</p>
+          <h5>Model</h5>
+          <p>{details.model}</p>
         </div>
         <div className="col">
-          <h5>Diameter</h5>
-          <p>{details.diameter}</p>
+          <h5>Manufacturer</h5>
+          <p>{details.manufacturer}</p>
         </div>
         <div className="col">
-          <h5>Gravity</h5>
-          <p>{details.gravity}</p>
+          <h5>Length</h5>
+          <p>{details.length}</p>
         </div>
         <div className="col">
-          <h5>Population</h5>
-          <p>{details.population}</p>
+          <h5>Crew</h5>
+          <p>{details.crew}</p>
         </div>
         <div className="col">
-          <h5>Terrain</h5>
-          <p>{details.terrain}</p>
+          <h5>Max speed</h5>
+          <p>{details.max_atmosphering_speed}</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default Planets;
+export default Vehicles;

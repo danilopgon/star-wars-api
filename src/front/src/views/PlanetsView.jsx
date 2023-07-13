@@ -8,9 +8,8 @@ export const PlanetsView = () => {
   const params = useParams();
   const { store } = useAppContext();
 
-  const planet = store.planets.find((planet) => planet.uid === params.id);
-  const details = store.planetsDetails.find(
-    (detail) => detail.name === planet.name
+  const planet = store.planets.find(
+    (planet) => planet.id === Number(params.id)
   );
 
   if (store.loading) {
@@ -19,8 +18,8 @@ export const PlanetsView = () => {
 
   return (
     <Planets
-      details={details}
-      src={`https://starwars-visualguide.com/assets/img/planets/${planet.uid}.jpg`}
+      details={planet}
+      src={`https://starwars-visualguide.com/assets/img/planets/${planet.id}.jpg`}
     >
       <p>
         Voluptate laborum laborum adipisicing occaecat cupidatat aliqua Lorem

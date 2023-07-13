@@ -45,8 +45,8 @@ export const LoginProvider = ({ children }) => {
       email: "",
       password: "",
     });
-    navigate("/");
     alert("You're logged in");
+    navigate("/");
   };
 
   const handleValidationLogin = () => {
