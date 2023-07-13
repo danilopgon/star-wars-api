@@ -7,7 +7,7 @@ npm run build
 //Servidor de desarrollo con npm run dev
 ```
 
-# Ejecuta el Back
+# Ejecuta el Back desde raiz
 
 ```
 pipenv install;
