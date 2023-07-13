@@ -90,26 +90,35 @@ export const AppProvider = ({ children }) => {
         body: JSON.stringify(postBody),
       };
 
-      await fetch(
+      const response = await fetch(
         `${import.meta.env.VITE_API_URL}api/favorite/${itemType}/${
           findItem.id
         }`,
         requestOptions
       );
 
-      allData.forEach((item) => {
-        element.id === item.id && element.className.includes(item.name)
-          ? setFavoritesList((prev) => {
+      console.log(response);
+
+      if (response.ok) {
+        allData.forEach((item) => {
+          if (element.id === item.id && element.className.includes(item.name)) {
+            setFavoritesList((prev) => {
               if (!prev.includes(item.name)) {
                 return [...prev, item.name];
               } else {
                 const newList = prev.filter((element) => element !== item.name);
                 return [...newList];
               }
-            })
-          : null;
-      });
-      setLoading(true);
+            });
+          }
+        });
+        setLoading(true);
+      } else {
+        console.error(
+          "Failed to add to favorites. Response status:",
+          response.status
+        );
+      }
     } catch (error) {
       console.error("Failed to add to favorites:", error);
     }
@@ -142,27 +151,42 @@ export const AppProvider = ({ children }) => {
         body: JSON.stringify(postBody),
       };
 
-      await fetch(
+      const response = await fetch(
         `${import.meta.env.VITE_API_URL}api/favorite/${itemType}/${
           findItem.id
         }`,
         requestOptions
       );
 
-      setFavoritesList((prevFavorites) =>
-        prevFavorites.filter((favorite) => favorite.name !== findItem.name)
-      );
-
-      setLoading(true);
+      if (response.ok) {
+        setFavoritesList((prevFavorites) =>
+          prevFavorites.filter((favorite) => favorite.name !== findItem.name)
+        );
+        setLoading(true);
+      } else {
+        console.error(
+          "Failed to delete from favorites. Response status:",
+          response.status
+        );
+      }
     } catch (error) {
       console.error("Failed to delete from favorites:", error);
     }
+  };
+
+  const isItemInFavorites = (item) => {
+    const itemInFavorites = favoritesList.some(
+      (favoriteItem) => favoriteItem.id === item.id
+    );
+
+    return itemInFavorites;
   };
 
   const actions = {
     handleDeleteFavorites,
     handleAddFavoritesList,
     getItemType,
+    isItemInFavorites,
   };
 
   const store = {
