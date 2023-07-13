@@ -2,6 +2,7 @@ import React, { useContext, createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import login from "../services/login";
 import signup from "../services/signup";
+import checkTokenValidity from "../services/checkTokenValidity";
 
 const LoginContext = createContext();
 
@@ -17,10 +18,7 @@ export const LoginProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("jwt-token")) {
-      setLoggedIn(true);
-      alert("Welcome back!");
-    }
+    checkTokenValidity(handleLogout, handleValidationLogin);
   }, []);
 
   const handleUserInput = (event) => {
@@ -47,6 +45,12 @@ export const LoginProvider = ({ children }) => {
       email: "",
       password: "",
     });
+    navigate("/");
+    alert("You're logged in");
+  };
+
+  const handleValidationLogin = () => {
+    setLoggedIn(true);
     navigate("/");
     alert("You're logged in");
   };

@@ -1,8 +1,9 @@
 from flask import jsonify, request
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, verify_jwt_in_request
 from tools import bcrypt
 
 
+from jwt.exceptions import ExpiredSignatureError
 
 from models import User
 from tools import db
@@ -57,3 +58,18 @@ def signup():
         return jsonify({"msg": "Failed to register user", "error": str(e)}), 500
 
     return jsonify({"msg": "User registered successfully"}), 201
+
+def validate_token():
+    try:
+        response = verify_jwt_in_request()
+        current_user = get_jwt_identity()
+        
+        if (not response):
+            return {"message": "Invalid token"}, 401 
+            
+            
+        return {"message": "Token is valid", "user": current_user}, 200
+        
+  
+    except Exception as e:
+        return {"message": "An error occurred while validating the token"}, 500

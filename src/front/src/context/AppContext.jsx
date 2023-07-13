@@ -17,9 +17,11 @@ export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchFavorites().catch((error) => {
+    try {
+      fetchFavorites(setFavoritesList);
+    } catch (error) {
       console.error("Failed to fetch favorites:", error);
-    });
+    }
   }, []);
 
   useEffect(() => {
@@ -49,80 +51,9 @@ export const AppProvider = ({ children }) => {
     }
   }, [characters, planets]);
 
-  const handleAddFavoritesList = async (e) => {
-    const element = e.target;
+  const handleAddFavoritesList = async () => {};
 
-    allData.forEach(async (item) => {
-      if (element.id === item.id && element.className.includes(item.name)) {
-        const favoriteEndpoint =
-          item.type === "character"
-            ? `/character/${item.id}`
-            : `/planet/${item.id}`;
-        const requestOptions = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-          },
-          body: JSON.stringify({}),
-        };
-
-        if (favoritesList.includes(item.name)) {
-          // If the favorite already exists, send a DELETE request
-          requestOptions.method = "DELETE";
-        }
-
-        try {
-          const response = await fetch(favoriteEndpoint, requestOptions);
-          if (response.ok) {
-            // Update favoritesList based on the response
-            const updatedFavorites = await response.json();
-            setFavoritesList(updatedFavorites);
-          } else {
-            const errorData = await response.json();
-            // Handle error response
-            console.error(
-              `Failed to add/delete favorite: ${errorData.message}`
-            );
-          }
-        } catch (error) {
-          // Handle fetch error
-          console.error("Failed to fetch data:", error);
-        }
-      }
-    });
-  };
-
-  const handleDeleteFavorites = async (e) => {
-    const elementId = e.target.id;
-    const newList = favoritesList.filter((item) => item !== elementId);
-    setFavoritesList([...newList]);
-
-    const item = allData.find((item) => item.name === elementId);
-    const favoriteEndpoint =
-      item.type === "character"
-        ? `/character/${item.id}`
-        : `/planet/${item.id}`;
-    const requestOptions = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    };
-
-    try {
-      const response = await fetch(favoriteEndpoint, requestOptions);
-      if (!response.ok) {
-        const errorData = await response.json();
-        // Handle error response
-        console.error(`Failed to delete favorite: ${errorData.message}`);
-      }
-    } catch (error) {
-      // Handle fetch error
-      console.error("Failed to fetch data:", error);
-    }
-  };
+  const handleDeleteFavorites = async () => {};
 
   const actions = {
     handleDeleteFavorites,

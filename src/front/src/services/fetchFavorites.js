@@ -1,4 +1,4 @@
-const fetchFavorites = async () => {
+const fetchFavorites = async (setFavorites) => {
   try {
     const token = localStorage.getItem("jwt-token");
     const requestOptions = {
@@ -12,13 +12,17 @@ const fetchFavorites = async () => {
       `${import.meta.env.VITE_API_URL}api/favorite`,
       requestOptions
     );
-    if (response.ok) {
-      const favorites = await response.json();
-      setFavoritesList(favorites);
-    } else {
-      const errorData = await response.json();
-      console.error("Failed to fetch favorites:", errorData.message);
-    }
+    const favorites = await response.json();
+
+    const favoritesList = [
+      ...favorites.favorites_characters,
+      ...favorites.favorites_planets,
+      ...favorites.favorites_vehicles,
+    ];
+
+    console.log(favoritesList);
+
+    setFavorites(favoritesList);
   } catch (error) {
     console.error("Failed to fetch favorites:", error);
   }
