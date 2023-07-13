@@ -22,39 +22,35 @@ export const Navbar = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Favorites{" "}
+              Favorites
               <span className="p-1 text-light">
                 {appStore.favoritesList?.length}
               </span>
             </button>
             <ul className="dropdown-menu">
               {appStore.favoritesList?.map((item) => {
-                const itemList = appStore.allData.find(
-                  (itemList) => itemList.name === item
-                );
-                const switchUrl = appStore.characters.includes(itemList)
-                  ? "characters"
-                  : "planets";
+                const itemType = appActions.getItemType(item);
+
                 return (
-                  <li className="d-flex m-2" key={item.name}>
+                  <li className="d-flex m-2" key={item.id}>
                     <Link
-                      to={`/${switchUrl}/${itemList.uid}`}
+                      to={`/${itemType}s/${item}`}
                       className="dropdown-item"
                       href="#"
                       key={item.id}
                     >
-                      {item}
+                      {item.name}
                     </Link>
                     <button
                       className="btn btn-danger"
-                      id={item}
+                      id={item.id}
                       key={item.id}
-                      onClick={appActions.handleDeleteFavorites}
+                      onClick={() => appActions.handleDeleteFavorites(item)}
                     >
                       <i
                         className="fa-regular fa-trash-can p-1"
-                        onClick={appActions.handleDeleteFavorites}
-                        id={item}
+                        onClick={() => appActions.handleDeleteFavorites(item)}
+                        id={item.id}
                       ></i>
                     </button>
                   </li>

@@ -12,8 +12,6 @@ export const DetailsView = () => {
     (character) => character.id === Number(params.id)
   );
 
-  console.log(store.characters);
-
   if (store.loading) {
     return <LoadingSpinner />;
   }

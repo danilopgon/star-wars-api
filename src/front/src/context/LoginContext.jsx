@@ -64,15 +64,15 @@ export const LoginProvider = ({ children }) => {
       email: "",
       password: "",
     });
-    navigate("/login");
     alert("¡Registro completado!");
+    navigate("/login");
   };
 
   const handleLogout = () => {
     setLoggedIn(false);
     localStorage.removeItem("jwt-token");
-    navigate("/login");
     alert("You have been logged out");
+    navigate("/login");
   };
 
   const actions = {

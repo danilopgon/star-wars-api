@@ -19,13 +19,7 @@ export const Home = () => {
       <CardGroup>
         {store?.characters.map((character) => {
           return (
-            <Card
-              title={character.name}
-              key={character.id}
-              url={`/characters/${character.id}`}
-              id={character.id}
-              src={`https://starwars-visualguide.com/assets/img/characters/${character.id}.jpg`}
-            >
+            <Card item={character} key={character.id}>
               <p>{`Gender: ${character.gender}`}</p>
               <p>{`Hair Color: ${character.hair_color}`}</p>
               <p>{`Eye Color: ${character.eye_color}`}</p>
@@ -37,13 +31,7 @@ export const Home = () => {
       <CardGroup>
         {store?.planets.map((planet) => {
           return (
-            <Card
-              title={planet.name}
-              key={planet.id}
-              url={`/planets/${planet.id}`}
-              id={planet.id}
-              src={`https://starwars-visualguide.com/assets/img/planets/${planet.id}.jpg`}
-            >
+            <Card item={planet} key={planet.id}>
               <p>{`Population: ${planet.population}`}</p>
               <p>{`Terrain: ${planet.terrain}`}</p>
             </Card>
@@ -54,13 +42,7 @@ export const Home = () => {
       <CardGroup>
         {store?.vehicles.map((vehicle) => {
           return (
-            <Card
-              title={vehicle.name}
-              key={vehicle.id}
-              url={`/vehicles/${vehicle.id}`}
-              id={vehicle.id}
-              src={`https://starwars-visualguide.com/assets/img/vehicles/${vehicle.id}.jpg`}
-            >
+            <Card item={vehicle} key={vehicle.id}>
               <p>{`Model: ${vehicle.model}`}</p>
               <p>{`Manufacturer: ${vehicle.manufacturer}`}</p>
             </Card>

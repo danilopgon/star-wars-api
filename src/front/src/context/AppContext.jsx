@@ -49,15 +49,100 @@ export const AppProvider = ({ children }) => {
     ) {
       setLoading(false);
     }
-  }, [characters, planets]);
+  }, [characters, planets, vehicles]);
 
-  const handleAddFavoritesList = async () => {};
+  const getItemType = (item) => {
+    if (characters.find((character) => character.name === item.name)) {
+      return "character";
+    }
+    if (planets.find((planet) => planet.name === item.name)) {
+      return "planet";
+    }
+    if (vehicles.find((vehicle) => vehicle.name === item.name)) {
+      return "vehicle";
+    }
+    return "";
+  };
 
-  const handleDeleteFavorites = async () => {};
+  const handleAddFavoritesList = async (e) => {
+    try {
+      const token = localStorage.getItem("jwt-token");
+
+      const element = e.target;
+
+      const findItem = allData.find((item) => {
+        return element.className.includes(item.name);
+      });
+
+      const itemType = getItemType(findItem);
+
+      const postBody = {
+        [`${itemType}_id`]: `${findItem.id}`,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(postBody),
+      };
+
+      await fetch(
+        `${import.meta.env.VITE_API_URL}api/favorite/${itemType}/${
+          findItem.id
+        }`,
+        requestOptions
+      );
+
+      allData.forEach((item) => {
+        element.id === item.id && element.className.includes(item.name)
+          ? setFavoritesList((prev) => {
+              if (!prev.includes(item.name)) {
+                return [...prev, item.name];
+              } else {
+                const newList = prev.filter((element) => element !== item.name);
+                return [...newList];
+              }
+            })
+          : null;
+      });
+    } catch (error) {
+      console.error("Failed to add to favorites:", error);
+    }
+  };
+
+  const handleDeleteFavorites = async (item) => {
+    try {
+      const token = localStorage.getItem("jwt-token");
+      const requestOptions = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const itemType = getItemType(item);
+
+      await fetch(
+        `${import.meta.env.VITE_API_URL}api/favorite/${itemType}/${item.id}`,
+        requestOptions
+      );
+
+      setFavoritesList((prevFavorites) =>
+        prevFavorites.filter((favorite) => favorite.name !== item.name)
+      );
+    } catch (error) {
+      console.error("Failed to delete from favorites:", error);
+    }
+  };
 
   const actions = {
     handleDeleteFavorites,
     handleAddFavoritesList,
+    getItemType,
   };
 
   const store = {

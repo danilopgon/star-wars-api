@@ -10,6 +10,7 @@ current_user_id = get_jwt_identity
 @favorite_routes.route("/planet/<int:planet_id>", methods=["POST", "DELETE"])
 @jwt_required()
 def favorite_planet(planet_id):
+    user_id = get_jwt_identity()
     if request.method == 'POST':
         return post_favorite_planet(user_id)
     if request.method == 'DELETE':
@@ -19,6 +20,7 @@ def favorite_planet(planet_id):
 @favorite_routes.route("/character/<int:character_id>", methods=["POST", "DELETE"])
 @jwt_required()
 def favorite_character(character_id):
+    user_id = get_jwt_identity()
     if request.method == 'POST':
         return post_favorite_character(user_id)
     if request.method == 'DELETE':
@@ -28,6 +30,7 @@ def favorite_character(character_id):
 @favorite_routes.route("/vehicle/<int:vehicle_id>", methods=["POST", "DELETE"])
 @jwt_required()
 def favorite_vehicle(vehicle_id):
+    user_id = get_jwt_identity()
     if request.method == 'POST':
         return post_favorite_vehicle(user_id)
     if request.method == 'DELETE':
