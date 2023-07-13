@@ -16,6 +16,12 @@ pipenv run migrate;
 pipenv run upgrade;
 ```
 
+# Setup de la DB
+
+```
+El endpoint api/setup puede llamarse 3 veces para llenar cada uno de las tablas principales con los datos de Swapi
+```
+
 <a href="https://www.breatheco.de"><img height="280" align="right" src="https://github.com/4GeeksAcademy/flask-rest-hello/blob/main/docs/assets/badge.png?raw=true"></a>
 
 # Flask Boilerplate for Junior Developers

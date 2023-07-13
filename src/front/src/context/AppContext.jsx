@@ -97,8 +97,6 @@ export const AppProvider = ({ children }) => {
         requestOptions
       );
 
-      console.log(response);
-
       if (response.ok) {
         allData.forEach((item) => {
           if (element.id === item.id && element.className.includes(item.name)) {
@@ -129,8 +127,6 @@ export const AppProvider = ({ children }) => {
       const token = localStorage.getItem("jwt-token");
 
       const element = e.target;
-
-      console.log(element);
 
       const findItem = allData.find((item) => {
         return element.className.includes(item.name);

@@ -129,7 +129,6 @@ def setupVehicles():
                 db.session.add(vehicle)
                 db.session.commit()
 
-                # Verify if the vehicle was added successfully
                 if db.session.query(Vehicle).filter_by(id=vehicle_info["id"]).first() is not None:
                     successful_insertions += 1
 
