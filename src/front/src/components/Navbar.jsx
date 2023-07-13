@@ -42,14 +42,13 @@ export const Navbar = () => {
                       {item.name}
                     </Link>
                     <button
-                      className="btn btn-danger"
+                      className={`${item.name} btn btn-danger`}
                       id={item.id}
-                      key={item.id}
-                      onClick={() => appActions.handleDeleteFavorites(item)}
+                      onClick={(e) => appActions.handleDeleteFavorites(e)}
                     >
                       <i
-                        className="fa-regular fa-trash-can p-1"
-                        onClick={() => appActions.handleDeleteFavorites(item)}
+                        className={`${item.name} fa-regular fa-trash-can p-1`}
+                        onClick={(e) => appActions.handleDeleteFavorites(e)}
                         id={item.id}
                       ></i>
                     </button>
