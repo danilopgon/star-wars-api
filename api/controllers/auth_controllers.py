@@ -10,21 +10,23 @@ from tools import db
 
 
 def login():
-    username = request.json.get("username", None)
-    password = request.json.get("password", None)
+    data = request.json
+    username = data.get("username")
+    password = data.get("password")
 
+    find_user = User.query.filter_by(username=username).first()
+
+    if not find_user:
+        return jsonify({"message": "User not found"}), 404
    
-    if not username or not password:
-        return jsonify({"msg": "Missing required fields"}), 400
-
-
-    user = User.query.filter_by(username=username).first()
-
-    if user is None or not bcrypt.check_password_hash(user.password, password):
-        return jsonify({"msg": "Bad username or password"}), 401
-
-    access_token = create_access_token(identity=user.id)
-    return jsonify({"token": access_token, "user_id": user.id})
+  
+    if not bcrypt.check_password_hash(find_user.password, password):
+        return jsonify({"message": "Invalid password"}), 400
+        
+    user_data = find_user.serialize_with_favorites()
+    access_token = create_access_token(identity=user_data)
+    return jsonify({"message": "Login successful", "token": access_token}), 200
+        
 
 def signup():
     username = request.json.get("username", None)

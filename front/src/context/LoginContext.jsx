@@ -33,11 +33,14 @@ export const LoginProvider = ({ children }) => {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    await login(userInput);
+    const response = await login(userInput);
 
-    if (localStorage.getItem("jwt-token") === null) {
+    if (response.status !== 200) {
       return alert("Failed to login. Please check your credentials.");
     }
+
+    const { token } = response.data;
+    localStorage.setItem("jwt-token", token);
 
     setLoggedIn(true);
     setUserInput({
