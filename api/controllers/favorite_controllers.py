@@ -156,7 +156,9 @@ def delete_favorite_vehicle(user_id):
 def get_all_favorites(user_id):
     try:
         user = User.query.get(user_id)
+        print(user.serialize_with_favorites())
         return jsonify(user.serialize_with_favorites()), 200
+        
     except Exception as e:
         response = {"error": str(e)}
         return jsonify(response), 500

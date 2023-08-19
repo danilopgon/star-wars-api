@@ -41,6 +41,7 @@ def favorite_vehicle(vehicle_id):
 @jwt_required()
 def get_user_favorites():
     user_id = get_jwt_identity()
+    print(user_id)
     favorites = get_all_favorites(user_id)
     return favorites
 

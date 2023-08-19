@@ -15,6 +15,7 @@ const fetchFavorites = async (setFavorites) => {
         requestOptions
       );
       const favorites = await response.json();
+      console.log("favorites", favorites);
 
       const favoritesList = [
         ...favorites.favorites_characters,

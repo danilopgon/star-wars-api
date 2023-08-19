@@ -39,7 +39,10 @@ export const LoginProvider = ({ children }) => {
       return alert("Failed to login. Please check your credentials.");
     }
 
-    const { token } = response.data;
+    const data = await response.json();
+    const { token } = data.token;
+    console.log(data.token);
+
     localStorage.setItem("jwt-token", token);
 
     setLoggedIn(true);
