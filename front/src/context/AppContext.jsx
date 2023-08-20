@@ -18,8 +18,11 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     try {
-      fetchFavorites(setFavoritesList);
-      setLoading(false);
+      const getFavoritesList = async () => {
+        await fetchFavorites(setFavoritesList);
+        setLoading(false);
+      };
+      getFavoritesList();
     } catch (error) {
       console.error("Failed to fetch favorites:", error);
     }

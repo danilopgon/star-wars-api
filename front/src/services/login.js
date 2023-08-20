@@ -10,7 +10,11 @@ const login = async (userInput) => {
         body: JSON.stringify({ username, password }),
       }
     );
-    return response;
+
+    const data = await response.json();
+    localStorage.setItem("jwt-token", data.token);
+    console.log(data.token);
+    return data;
   } catch (error) {
     console.log(error);
   }

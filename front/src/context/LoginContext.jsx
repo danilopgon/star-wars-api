@@ -35,16 +35,6 @@ export const LoginProvider = ({ children }) => {
 
     const response = await login(userInput);
 
-    if (response.status !== 200) {
-      return alert("Failed to login. Please check your credentials.");
-    }
-
-    const data = await response.json();
-    const { token } = data.token;
-    console.log(data.token);
-
-    localStorage.setItem("jwt-token", token);
-
     setLoggedIn(true);
     setUserInput({
       username: "",

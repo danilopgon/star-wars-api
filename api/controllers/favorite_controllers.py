@@ -153,11 +153,14 @@ def delete_favorite_vehicle(user_id):
         response = {"error": str(e)}
         return jsonify(response), 500
 
-def get_all_favorites(user_id):
+def get_all_favorites():
     try:
-        user = User.query.get(user_id)
-        print(user.serialize_with_favorites())
-        return jsonify(user.serialize_with_favorites()), 200
+        user = get_jwt_identity()
+        user_id = user["id"]
+        print("ESTA ES LA USER ID: ", user_id)
+        found_user = User.query.get(user_id)
+        return jsonify(found_user.serialize_with_favorites()), 200
+
         
     except Exception as e:
         response = {"error": str(e)}

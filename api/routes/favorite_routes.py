@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from controllers.favorite_controllers import *
+from controllers.favorite_controllers import post_favorite_planet, post_favorite_character, post_favorite_vehicle, delete_favorite_planet, delete_favorite_character, delete_favorite_vehicle, get_all_favorites
 
 favorite_routes = Blueprint("favorite", __name__)
 
@@ -40,8 +40,4 @@ def favorite_vehicle(vehicle_id):
 @favorite_routes.route("/", methods=["GET"])
 @jwt_required()
 def get_user_favorites():
-    user_id = get_jwt_identity()
-    print(user_id)
-    favorites = get_all_favorites(user_id)
-    return favorites
-
+    return get_all_favorites()

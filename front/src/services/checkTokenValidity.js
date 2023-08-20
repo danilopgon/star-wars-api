@@ -2,7 +2,6 @@ const checkTokenValidity = async (handleLogout, handleValidationLogin) => {
   const token = localStorage.getItem("jwt-token");
 
   if (!token) {
-    handleLogout();
     return;
   }
 
@@ -17,13 +16,14 @@ const checkTokenValidity = async (handleLogout, handleValidationLogin) => {
       }
     );
 
-    if (response.ok) {
-      handleValidationLogin();
+    if (!response.ok) {
+      handleLogout();
+      return;
     }
+
+    return handleValidationLogin();
   } catch (error) {
     console.error("Failed to validate token:", error);
-    handleLogout();
-    localStorage.removeItem("jwt-token");
   }
 };
 

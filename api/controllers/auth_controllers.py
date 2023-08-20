@@ -63,15 +63,9 @@ def signup():
 
 def validate_token():
     try:
-        response = verify_jwt_in_request()
-        current_user = get_jwt_identity()
-        
-        if (not response):
-            return {"message": "Invalid token"}, 401 
-            
-            
-        return {"message": "Token is valid", "user": current_user}, 200
-        
-  
+        verify_jwt_in_request()
+        return jsonify({"message": "Valid token"}), 200
+    except ExpiredSignatureError:
+        return jsonify({"message": "Token has expired"}), 401
     except Exception as e:
-        return {"message": "An error occurred while validating the token"}, 500
+        return jsonify({"message": "Invalid token", "error": str(e)}), 401

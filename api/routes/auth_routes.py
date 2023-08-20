@@ -15,5 +15,6 @@ def signup_route():
     return signup()
 
 @auth_routes.route("/validate-token", methods=["GET"])
+@jwt_required()
 def validate_route():
     return validate_token()
