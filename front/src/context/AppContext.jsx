@@ -20,7 +20,9 @@ export const AppProvider = ({ children }) => {
     try {
       const getFavoritesList = async () => {
         await fetchFavorites(setFavoritesList);
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       };
       getFavoritesList();
     } catch (error) {
