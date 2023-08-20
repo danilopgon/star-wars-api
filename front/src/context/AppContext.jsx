@@ -1,5 +1,6 @@
 import { useContext, createContext, useEffect } from "react";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 import getCharacters from "../services/characters";
 import getPlanets from "../services/planets";
@@ -27,6 +28,7 @@ export const AppProvider = ({ children }) => {
       getFavoritesList();
     } catch (error) {
       console.error("Failed to fetch favorites:", error);
+      toast.error("Failed to fetch favorites");
     }
   }, [loading]);
 
@@ -116,14 +118,19 @@ export const AppProvider = ({ children }) => {
           }
         });
         setLoading(true);
+        toast.success("Added to favorites");
+      } else if (response.status === 409) {
+        toast.error("Item is already in favorites");
       } else {
         console.error(
           "Failed to add to favorites. Response status:",
           response.status
         );
+        toast.error("Failed to add to favorites");
       }
     } catch (error) {
       console.error("Failed to add to favorites:", error);
+      toast.error("Failed to add to favorites");
     }
   };
 
@@ -164,14 +171,17 @@ export const AppProvider = ({ children }) => {
           prevFavorites.filter((favorite) => favorite.name !== findItem.name)
         );
         setLoading(true);
+        toast.success("Removed from favorites");
       } else {
         console.error(
           "Failed to delete from favorites. Response status:",
           response.status
         );
+        toast.error("Failed to delete from favorites");
       }
     } catch (error) {
       console.error("Failed to delete from favorites:", error);
+      toast.error("Failed to delete from favorites");
     }
   };
 

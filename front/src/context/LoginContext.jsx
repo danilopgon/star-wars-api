@@ -1,5 +1,7 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+
 import login from "../services/login";
 import signup from "../services/signup";
 import checkTokenValidity from "../services/checkTokenValidity";
@@ -31,9 +33,17 @@ export const LoginProvider = ({ children }) => {
   };
 
   const handleLogin = async (event) => {
+    const loadingLogin = toast.loading("Connecting...");
     event.preventDefault();
 
     const response = await login(userInput);
+
+    if (response.error) {
+      toast.error(response.error, {
+        id: loadingLogin,
+      });
+      return;
+    }
 
     setLoggedIn(true);
     setUserInput({
@@ -41,7 +51,9 @@ export const LoginProvider = ({ children }) => {
       email: "",
       password: "",
     });
-    alert("You're logged in");
+    toast.success("You're connected", {
+      id: loadingLogin,
+    });
     navigate("/");
   };
 
@@ -59,14 +71,14 @@ export const LoginProvider = ({ children }) => {
       email: "",
       password: "",
     });
-    alert("¡Registro completado!");
+    toast.success("Sucessfully signed up");
     navigate("/login");
   };
 
   const handleLogout = () => {
     setLoggedIn(false);
     localStorage.removeItem("jwt-token");
-    alert("You have been logged out");
+    toast.success("You are logged out");
     navigate("/login");
   };
 

@@ -22,7 +22,6 @@ const fetchFavorites = async (setFavorites) => {
     }
 
     const favorites = await response.json();
-    console.log(favorites);
 
     const favoritesList = [
       ...favorites.favorites_characters,

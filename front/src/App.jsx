@@ -4,6 +4,7 @@ import "./App.css";
 import { AppProvider } from "./context/AppContext.jsx";
 import { LoginProvider } from "./context/LoginContext.jsx";
 import { Navbar } from "./components/Navbar";
+import MainToaster from "./components/MainToaster";
 
 import { Home } from "./views/Home";
 import { DetailsView } from "./views/DetailsView";
@@ -15,6 +16,7 @@ import { LoginView } from "./views/LoginView";
 function App() {
   return (
     <BrowserRouter basename="/">
+      <MainToaster />
       <LoginProvider>
         <AppProvider>
           <Navbar />
