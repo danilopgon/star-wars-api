@@ -186,12 +186,18 @@ export const AppProvider = ({ children }) => {
   };
 
   const isItemInFavorites = (item) => {
-    const itemInFavorites = favoritesList.some(
-      (favoriteItem) => favoriteItem.id === item.id
+    const findItem = favoritesList.find(
+      (element) => element.name === item.name
     );
+
+    const itemInFavorites = findItem ? true : false;
 
     return itemInFavorites;
   };
+
+  useEffect(() => {
+    console.log(favoritesList);
+  }, [favoritesList]);
 
   const actions = {
     handleDeleteFavorites,

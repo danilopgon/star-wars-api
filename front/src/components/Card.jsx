@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export const Card = ({ item, children }) => {
   const [likeStatus, setLikeStatus] = useState(false);
-  const { actions: appActions } = useAppContext();
+  const { actions: appActions, store: appStore } = useAppContext();
   const { store: loginStore } = useLoginContext();
 
   const itemType = appActions.getItemType(item);
