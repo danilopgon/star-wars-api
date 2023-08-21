@@ -1,3 +1,12 @@
+# Configura los archivos .env
+
+```
+El que se encuentra en la raiz funciona para el backend
+El del front está en la carpeta front
+```
+
+Ambos tienen un .env.dist con las variables de entorno que necesitan ser configuradas
+
 # Ejecuta el Front desde src/front/ con
 
 ```
