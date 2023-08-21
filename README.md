@@ -7,7 +7,7 @@ El del front está en la carpeta front
 
 Ambos tienen un .env.dist con las variables de entorno que necesitan ser configuradas
 
-# Ejecuta el Front desde src/front/ con
+# Instala y construye el Front desde ./front con
 
 ```
 npm install
@@ -16,7 +16,7 @@ npm run build
 //Servidor de desarrollo con npm run dev
 ```
 
-# Ejecuta el Back desde raiz
+# Ejecuta el Back desde root
 
 ```
 pipenv install;
@@ -24,9 +24,6 @@ pipenv run start
 ```
 
 # Setup de la DB
-
-Pipenv run start -> inicializa la base de datos
-Sin embargo se puede usar desde la carpeta api:
 
 ```
 pipenv run init
