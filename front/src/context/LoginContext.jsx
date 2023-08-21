@@ -72,7 +72,7 @@ export const LoginProvider = ({ children }) => {
       password: "",
     });
     toast.success("Sucessfully signed up");
-    navigate("/login");
+    setSignupMode(false);
   };
 
   const handleLogout = () => {

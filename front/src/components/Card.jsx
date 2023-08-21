@@ -11,11 +11,21 @@ export const Card = ({ item, children }) => {
 
   const itemType = appActions.getItemType(item);
 
+  useEffect(() => {
+    const isItemInFavorites = appActions.isItemInFavorites(item);
+    setLikeStatus(isItemInFavorites);
+  }, [appActions, item]);
+
   const switchStatus = (e) => {
-    setLikeStatus((prev) => {
-      return !prev;
-    });
-    return appActions.handleAddFavoritesList(e);
+    const isItemInFavorites = appActions.isItemInFavorites(item);
+    if (isItemInFavorites) {
+      return appActions.handleDeleteFavorites(e);
+    } else {
+      setLikeStatus((prev) => {
+        return !prev;
+      });
+      return appActions.handleAddFavoritesList(e);
+    }
   };
 
   const color = useMemo(() => {
@@ -59,3 +69,5 @@ export const Card = ({ item, children }) => {
     </div>
   );
 };
+
+export default Card;

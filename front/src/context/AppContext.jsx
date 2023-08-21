@@ -170,8 +170,8 @@ export const AppProvider = ({ children }) => {
         setFavoritesList((prevFavorites) =>
           prevFavorites.filter((favorite) => favorite.name !== findItem.name)
         );
-        setLoading(true);
         toast.success("Removed from favorites");
+        setLoading(true);
       } else {
         console.error(
           "Failed to delete from favorites. Response status:",
