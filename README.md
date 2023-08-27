@@ -1,3 +1,7 @@
+# Star Wars Visual Guide: React front-emd + Flask back-end + JWT auth
+
+Proyecto para [4Geeks Academy](https://4geeks.com/)
+
 # Configura los archivos .env
 
 ```
